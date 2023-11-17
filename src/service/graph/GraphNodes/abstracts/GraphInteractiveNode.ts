@@ -1,4 +1,5 @@
 import {
+    EDiagramNode,
     EModeAddResourcesToDataNode,
     ENodeAction,
     ENodeTrigger,
@@ -14,7 +15,7 @@ export abstract class GraphInteractiveNode<IGenericNodeData extends INodeDataWit
     extends GraphInvokableNode<IGenericNodeData> {
 
     invokeStep() {
-    const canBeInvoked = this.canBeInvoked()
+        const canBeInvoked = this.canBeInvoked()
         if (canBeInvoked) {
             super.invokeStep()
             this.runAction();
@@ -23,6 +24,9 @@ export abstract class GraphInteractiveNode<IGenericNodeData extends INodeDataWit
     }
 
     private canBeInvoked() {
+        if (this.data.type === EDiagramNode.Data) {
+            return true
+        }
         if (this.triggerMode === ENodeTrigger.automatic) {
             return true
         } else if (this.triggerMode === ENodeTrigger.enabling) {
@@ -40,13 +44,14 @@ export abstract class GraphInteractiveNode<IGenericNodeData extends INodeDataWit
                 return true
             }
         }
+
         return false
     }
 
     protected abstract runAction(): void;
 
     get addingResourcesMode() {
-        if(this.actionMode === ENodeAction.pushAll || this.actionMode === ENodeAction.pullAll){
+        if (this.actionMode === ENodeAction.pushAll || this.actionMode === ENodeAction.pullAll) {
             return EModeAddResourcesToDataNode.onlyAll
         } else {
             return EModeAddResourcesToDataNode.asPossible

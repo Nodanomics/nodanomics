@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 // eslint-disable-next-line import/named
 import {NodeProps, Position} from "reactflow";
-import {Box} from "@mui/material";
-import {IDataNodeData} from "../../../../interface";
+import {Box, Typography} from "@mui/material";
+import {EConnectionMode, IDataNodeData} from "../../../../interface";
 import {NodeStyle} from "../styledComponent";
 import {EColor, EFontColor, GAP_BETWEEN_EDITOR_CANVAS_DOTS} from "../../../../constant";
 import {BaseNodeContainer} from "../container";
@@ -12,6 +12,7 @@ import {useChangeNodeDataStep} from "../../../../hooks";
 import {useDiagramEditorState} from "../../../../redux";
 import {shortenLargeNumber} from "../../../../utils";
 import {DataHandle} from "../../CustomHandle/DataHandle";
+import {ChainHandle} from "../../CustomHandle/ChainHandle";
 
 
 export const DataNode: React.FC<NodeProps<IDataNodeData>> = (props) => {
@@ -80,12 +81,47 @@ export const DataNode: React.FC<NodeProps<IDataNodeData>> = (props) => {
                 alignItems: 'center',
                 pointerEvents: 'none',
             }}>
-                <DataHandle
-                    type="target"
-                    position={Position.Left}
-                    isConnectable={isConnectable}
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    padding: '2px',
+                    gap: '6px',
+                }}>
+                    <DataHandle
+                        type="target"
+                        position={Position.Left}
+                        isConnectable={isConnectable}
 
-                />
+                    />
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                    }}>
+                        <ChainHandle type={"target"} position={Position.Left} mode={EConnectionMode.RecordToSpreadsheet} isConnectable={isConnectable}/>
+                        <Typography sx={{
+                            fontSize: 9,
+                            color: EFontColor.lightMarine4,
+                        }}>
+                            record
+                        </Typography>
+                    </Box>
+                    <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                    }}>
+                        <ChainHandle type={"target"} position={Position.Left} mode={EConnectionMode.ReadDataset} isConnectable={isConnectable}/>
+                        <Typography sx={{
+                            fontSize: 9,
+                            color: EFontColor.lightMarine4,
+                        }}>
+                            read
+                        </Typography>
+                    </Box>
+                </Box>
                 <DataHandle
                     type="source"
                     position={Position.Right}

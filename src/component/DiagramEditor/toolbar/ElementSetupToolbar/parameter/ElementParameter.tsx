@@ -12,6 +12,7 @@ export const ElementParameter: React.FC<{
             <Grid item xs={2.7}>
                 <Parameter.Label sx={{
                     color: EFontColor.lightMarine4,
+                    fontSize: 15,
                 }}>
                     {label}
                 </Parameter.Label>

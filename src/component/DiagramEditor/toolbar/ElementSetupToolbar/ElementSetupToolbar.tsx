@@ -1,11 +1,18 @@
 import React from 'react';
 import {Box, Typography} from "@mui/material";
 import {EColor, EFontColor} from "../../../../constant";
-import {EDiagramNode, EElementType, isINodeDatasetRecorder, nodeSetupToolbarNames} from "../../../../interface";
+import {
+    EDiagramNode,
+    EElementType,
+    isINodeDatasetReader,
+    isINodeDatasetRecorder,
+    nodeSetupToolbarNames
+} from "../../../../interface";
 import {useCurrentEditElement} from "../../../../hooks";
 import {CommentSection, NodeStatisticSection, PropertiesSection, RecordToDataset} from "./section";
 import {StyleSection} from "./section/StyleSection";
 import {NodeDeleteButton} from "./NodeDeleteButton";
+import {ReadFromDataset} from "./section/ReadFromDataset";
 
 
 export const ElementSetupToolbar = () => {
@@ -60,6 +67,10 @@ export const ElementSetupToolbar = () => {
                             {selectedElementData?.elementType === EElementType.Node
                                 && isINodeDatasetRecorder(selectedElementData) &&
                                 <RecordToDataset nodeData={selectedElementData}/>
+                            }
+                            {selectedElementData?.elementType === EElementType.Node
+                                && isINodeDatasetReader(selectedElementData) &&
+                                <ReadFromDataset nodeData={selectedElementData}/>
                             }
                             <CommentSection element={selectedElementData}/>
 

@@ -25,7 +25,7 @@ export abstract class GraphInvokableNode<IGenericNodeData extends IInvokableNode
     // abstract invokeStep(): void
 
     invokeStep() {
-        this.offIsExecuted()
+        this.onIsExecuted()
     }
 
 
@@ -36,7 +36,7 @@ export abstract class GraphInvokableNode<IGenericNodeData extends IInvokableNode
         }
     }
 
-    private offIsExecuted() {
+    private onIsExecuted() {
         this._data = {
             ...this._data,
             isExecuted: true
